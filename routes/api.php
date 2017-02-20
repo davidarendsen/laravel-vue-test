@@ -17,15 +17,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('auth:api')->get('tasks', function (Request $request) {
-    return response()->json([
-        [
-            'id' => 1,
-            'body' => 'This is task 1',
-        ],
-        [
-            'id' => 2,
-            'body' => 'This is task 2',
-        ],
-    ]);
-});
+Route::middleware('auth:api')->resource('tasks', 'TasksController');

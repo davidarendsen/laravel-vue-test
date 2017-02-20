@@ -11550,7 +11550,7 @@ Vue.component('passport-authorized-clients', __webpack_require__(44));
 
 Vue.component('passport-personal-access-tokens', __webpack_require__(46));
 
-//Vue.component('tasks-component', require('./components/Tasks.vue'))
+Vue.component('tasks-component', __webpack_require__(66));
 
 var app = new Vue({
     el: '#app',
@@ -42293,6 +42293,240 @@ module.exports = function(module) {
 __webpack_require__(13);
 module.exports = __webpack_require__(14);
 
+
+/***/ }),
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            edit: false,
+            list: [],
+            task: {
+                id: '',
+                body: ''
+            },
+            tasks: [{
+                id: '1',
+                body: 'This is task 1'
+            }, {
+                id: '2',
+                body: 'This is task 2'
+            }, {
+                id: '3',
+                body: 'This is task 3'
+            }]
+        };
+    },
+
+    mounted: function mounted() {
+        this.fetchTaskList();
+    },
+
+    methods: {
+        fetchTaskList: function fetchTaskList() {
+            var _this = this;
+
+            axios.get('api/tasks').then(function (response) {
+                _this.list = response.data, console.log(response.data), console.log(_this.tasks);
+            });
+        },
+
+        createTask: function createTask() {
+            axios.post('api/tasks', this.task);
+            this.task.body = '';
+            this.edit = false;
+            this.fetchTaskList();
+        },
+
+        updateTask: function updateTask(id) {
+            axios.patch('api/tasks/' + id, this.task);
+            this.task.body = '';
+            this.edit = false;
+            this.fetchTaskList();
+        },
+
+        showTask: function showTask(id) {
+            axios.get('api/tasks/' + id).then(function (response) {
+                this.task.id = response.data.id;
+                this.task.body = response.data.body;
+            });
+            this.$els.taskinput.focus();
+            this.edit = true;
+        },
+
+        deleteTask: function deleteTask(id) {
+            axios.delete('api/tasks/' + id);
+            this.fetchTaskList();
+        }
+    }
+};
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(65),
+  /* template */
+  __webpack_require__(67),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/david/Sites/laravel-vue/resources/assets/js/components/Tasks.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Tasks.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a9f89638", Component.options)
+  } else {
+    hotAPI.reload("data-v-a9f89638", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('h1', [_vm._v("My Tasks")]), _vm._v(" "), _c('h4', [_vm._v("New Task")]), _vm._v(" "), _c('form', {
+    attrs: {
+      "action": "#"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.edit ? _vm.updateTask(_vm.task.id) : _vm.createTask()
+      }
+    }
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.task.body),
+      expression: "task.body"
+    }, {
+      name: "el",
+      rawName: "v-el:taskinput",
+      arg: "taskinput"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "body",
+      "autofocus": ""
+    },
+    domProps: {
+      "value": _vm._s(_vm.task.body)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.task.body = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-btn"
+  }, [_c('button', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.edit),
+      expression: "!edit"
+    }],
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("New Task")]), _vm._v(" "), _c('button', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.edit),
+      expression: "edit"
+    }],
+    staticClass: "btn btn-primary",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("Edit Task")])])])]), _vm._v(" "), _c('h4', [_vm._v("All Tasks")]), _vm._v(" "), _c('ul', {
+    staticClass: "list-group"
+  }, _vm._l((_vm.list), function(task) {
+    return _c('li', {
+      staticClass: "list-group-item"
+    }, [_vm._v("\n            " + _vm._s(task.body) + "\n            "), _c('button', {
+      staticClass: "btn btn-primary btn-xs",
+      on: {
+        "click": function($event) {
+          _vm.showTask(task.id)
+        }
+      }
+    }, [_vm._v("Edit")]), _vm._v(" "), _c('button', {
+      staticClass: "btn btn-danger btn-xs",
+      on: {
+        "click": function($event) {
+          _vm.deleteTask(task.id)
+        }
+      }
+    }, [_vm._v("Delete")])])
+  }))])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-a9f89638", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

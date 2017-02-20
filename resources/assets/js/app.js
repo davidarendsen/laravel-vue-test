@@ -30,7 +30,7 @@ Vue.component(
     require('./components/passport/PersonalAccessTokens.vue')
 );
 
-//Vue.component('tasks-component', require('./components/Tasks.vue'))
+Vue.component('tasks-component', require('./components/Tasks.vue'))
 
 const app = new Vue({
     el: '#app',

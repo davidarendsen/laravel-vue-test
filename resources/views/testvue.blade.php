@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
-            <!-- <tasks-component></tasks-component> -->
+            <tasks-component></tasks-component>
 
         </div>
     </div>
