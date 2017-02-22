@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Tasks;
 
 class TasksController extends Controller
 {
@@ -11,18 +12,9 @@ class TasksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Tasks $tasks)
     {
-        return response()->json([
-            [
-                'id' => 1,
-                'body' => 'This is task 1',
-            ],
-            [
-                'id' => 2,
-                'body' => 'This is task 2',
-            ],
-        ]);
+        return response()->json( $tasks->get() );
     }
 
     /**
@@ -52,9 +44,9 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Tasks $tasks, $id)
     {
-        //
+        return response()->json( $tasks->where('id', $id)->first() );
     }
 
     /**
@@ -75,9 +67,13 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Tasks $tasks, $id)
     {
-        //
+        $task = $tasks->where('id', $id)->first();
+        $task->body = $request->input('body');
+        $task->save();
+
+        return response()->json($request->input());
     }
 
     /**
