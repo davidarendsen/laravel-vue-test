@@ -38,7 +38,7 @@ class TasksController extends Controller
         $tasks->body = $request->input('body');
         $tasks->save();
 
-        return response()->json($request->input());
+        return response()->json( $request->input() );
     }
 
     /**
@@ -76,7 +76,7 @@ class TasksController extends Controller
         $task->body = $request->input('body');
         $task->save();
 
-        return response()->json($request->input());
+        return response()->json( $request->input() );
     }
 
     /**
@@ -85,8 +85,8 @@ class TasksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Tasks $tasks, $id)
     {
-        //
+        $tasks->where('id', $id)->delete();
     }
 }
