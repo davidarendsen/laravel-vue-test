@@ -33,9 +33,12 @@ class TasksController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Tasks $tasks)
     {
-        //
+        $tasks->body = $request->input('body');
+        $tasks->save();
+
+        return response()->json($request->input());
     }
 
     /**
