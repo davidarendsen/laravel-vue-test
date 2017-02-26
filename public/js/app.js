@@ -12507,38 +12507,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         createTask: function createTask() {
-            axios.post('api/tasks', this.task);
-            //this.task.body = '';
+            var _this2 = this;
+
+            axios.post('api/tasks', this.task).then(function (response) {
+                _this2.task.body = '';
+                _this2.fetchTaskList();
+            });
             this.edit = false;
-            this.fetchTaskList();
         },
 
         updateTask: function updateTask(id) {
-            var _this2 = this;
+            var _this3 = this;
 
             axios.put('api/tasks/' + id, this.task).then(function (response) {
-                _this2.task.body = '';
+                _this3.task.body = '';
+                _this3.fetchTaskList();
             }).catch(function (response) {
                 //error fallback
             });
-            //this.task.body = '';
             this.edit = false;
-            this.fetchTaskList();
         },
 
         showTask: function showTask(id) {
-            var _this3 = this;
+            var _this4 = this;
 
             axios.get('api/tasks/' + id).then(function (response) {
-                _this3.task.id = response.data.id, _this3.task.body = response.data.body;
+                _this4.task.id = response.data.id, _this4.task.body = response.data.body;
             });
             //this.$refs.taskinput.focus();
             this.edit = true;
         },
 
         deleteTask: function deleteTask(id) {
-            axios.delete('api/tasks/' + id);
-            this.fetchTaskList();
+            var _this5 = this;
+
+            axios.delete('api/tasks/' + id).then(function (response) {
+                _this5.fetchTaskList();
+            });
         }
     }
 };

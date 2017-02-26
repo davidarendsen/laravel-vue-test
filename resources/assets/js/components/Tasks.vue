@@ -51,21 +51,21 @@
             },
  
             createTask: function () {
-                axios.post('api/tasks', this.task);
-                //this.task.body = '';
+                axios.post('api/tasks', this.task).then((response) => {
+                    this.task.body = '';
+                    this.fetchTaskList();
+                });
                 this.edit = false;
-                this.fetchTaskList();
             },
  
             updateTask: function(id) {
                 axios.put('api/tasks/' + id, this.task).then((response) => {
                     this.task.body = '';
+                    this.fetchTaskList();
                 }).catch((response) => {
                     //error fallback
                 });
-                //this.task.body = '';
                 this.edit = false;
-                this.fetchTaskList();
             },
  
             showTask: function(id) {
@@ -78,8 +78,9 @@
             },
  
             deleteTask: function (id) {
-                axios.delete('api/tasks/' + id);
-                this.fetchTaskList();
+                axios.delete('api/tasks/' + id).then((response) => {
+                    this.fetchTaskList();
+                });
             },
         }
     }

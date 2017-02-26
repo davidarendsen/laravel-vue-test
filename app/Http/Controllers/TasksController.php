@@ -14,7 +14,7 @@ class TasksController extends Controller
      */
     public function index(Tasks $tasks)
     {
-        return response()->json( $tasks->get() );
+        return response()->json( $tasks->orderBy('updated_at', 'desc')->get() );
     }
 
     /**
