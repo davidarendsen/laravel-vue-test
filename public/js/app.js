@@ -12503,6 +12503,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('api/tasks').then(function (response) {
                 _this.tasks = response.data;
+            }).catch(function (response) {
+                if (response.status === 401) {
+                    window.location.href = "/login";
+                }
             });
         },
 
@@ -12512,6 +12516,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.post('api/tasks', this.task).then(function (response) {
                 _this2.task.body = '';
                 _this2.fetchTaskList();
+            }).catch(function (response) {
+                if (response.status === 401) {
+                    window.location.href = "/login";
+                }
             });
             this.edit = false;
         },
@@ -12524,6 +12532,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this3.fetchTaskList();
             }).catch(function (response) {
                 //error fallback
+                if (response.status === 401) {
+                    window.location.href = "/login";
+                }
             });
             this.edit = false;
         },
@@ -12533,6 +12544,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get('api/tasks/' + id).then(function (response) {
                 _this4.task.id = response.data.id, _this4.task.body = response.data.body;
+            }).catch(function (response) {
+                if (response.status === 401) {
+                    window.location.href = "/login";
+                }
             });
             //this.$refs.taskinput.focus();
             this.edit = true;
@@ -12543,6 +12558,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.delete('api/tasks/' + id).then(function (response) {
                 _this5.fetchTaskList();
+            }).catch(function (response) {
+                if (response.status === 401) {
+                    window.location.href = "/login";
+                }
             });
         }
     }

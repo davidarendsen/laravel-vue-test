@@ -47,13 +47,21 @@
             fetchTaskList: function() {
                 axios.get('api/tasks').then((response) => {
                     this.tasks = response.data
+                }).catch((response) => {
+                    if (response.status === 401) {
+                        window.location.href = "/login";
+                    }
                 });
             },
  
-            createTask: function () {
+            createTask: function() {
                 axios.post('api/tasks', this.task).then((response) => {
                     this.task.body = '';
                     this.fetchTaskList();
+                }).catch((response) => {
+                    if (response.status === 401) {
+                        window.location.href = "/login";
+                    }
                 });
                 this.edit = false;
             },
@@ -64,6 +72,9 @@
                     this.fetchTaskList();
                 }).catch((response) => {
                     //error fallback
+                    if (response.status === 401) {
+                        window.location.href = "/login";
+                    }
                 });
                 this.edit = false;
             },
@@ -72,14 +83,22 @@
                 axios.get('api/tasks/' + id).then((response) => {
                     this.task.id = response.data.id,
                     this.task.body = response.data.body
+                }).catch((response) => {
+                    if (response.status === 401) {
+                        window.location.href = "/login";
+                    }
                 });
                 //this.$refs.taskinput.focus();
                 this.edit = true;
             },
  
-            deleteTask: function (id) {
+            deleteTask: function(id) {
                 axios.delete('api/tasks/' + id).then((response) => {
                     this.fetchTaskList();
+                }).catch((response) => {
+                    if (response.status === 401) {
+                        window.location.href = "/login";
+                    }
                 });
             },
         }
